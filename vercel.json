@@ -1,8 +1,8 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": false,
-  "devCommand": false,
+  "buildCommand": null,
+  "devCommand": null,
   "outputDirectory": "src",
   "cleanUrls": true,
   "builds": [
