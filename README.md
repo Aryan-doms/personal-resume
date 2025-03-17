@@ -1,35 +1,23 @@
 # Personal Resume Website
 
-This project is a visually appealing self-resume website designed to showcase personal information, skills, projects, and contact details. It is structured to provide a seamless user experience and can be easily hosted on Vercel.
+Made a lil mainly focused on css project to have fun with css and learn css deploy it on vercel.
 
 ## Project Structure
 
 ```
 personal-resume
-├── public
-│   ├── css
-│   │   ├── main.css
-│   │   └── animations.css
-│   └── js
-│       └── main.js
 ├── src
+│   ├── assets/
 │   ├── index.html
-│   ├── about.html
-│   ├── projects.html
-│   ├── contact.html
-│   └── components
-│       ├── header.html
-│       ├── footer.html
-│       └── nav.html
 ├── vercel.json
 └── README.md
 ```
 
 ## Features
 
-- **Responsive Design**: The website is designed to be fully responsive, ensuring a great experience on both desktop and mobile devices.
-- **Interactive Elements**: JavaScript is used to enhance user interaction, including smooth navigation and form handling.
-- **Animations**: CSS animations are included to provide a dynamic feel to the website.
+- **Responsive Design**: The website is designed to be fully responsive on both pc and mobile.
+- **Animations**: just did whatever came to my mind as i was learning css.
+- **Wanna be dev**: ITS COOL WEBSITE C'MON
 
 ## Setup Instructions
 
@@ -49,11 +37,3 @@ personal-resume
    ```bash
    vercel
    ```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License.
