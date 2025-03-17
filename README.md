@@ -23,7 +23,7 @@ personal-resume
 
 1. Clone the repository:
    ```bash
-   git clone <https://github.com/Aryan-doms/personal-resume>
+   git clone https://github.com/Aryan-doms/personal-resume
    ```
 
 2. Navigate to the project directory:
