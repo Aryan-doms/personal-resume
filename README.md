@@ -32,8 +32,3 @@ personal-resume
    ```
 
 3. Open the `src/index.html` file in your browser to view the website.
-
-4. To deploy on Vercel, ensure you have the Vercel CLI installed and run:
-   ```bash
-   vercel
-   ```
