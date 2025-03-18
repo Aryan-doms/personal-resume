@@ -167,6 +167,34 @@
             box-shadow: 0 0 15px rgba(201, 255, 226, 0.7);
         }
 
+        /* Dark mode fixes for tech tags */
+        body.dark-mode .tech-tag {
+            background: var(--pastel-purple);
+            color: var(--bg-dark);
+            border-color: var(--accent);
+        }
+
+        /* Dark mode fixes for pixel buttons */
+        body.dark-mode .pixel-btn {
+            background: var(--pastel-mint);
+            color: var(--bg-dark);
+        }
+
+        body.dark-mode .pixel-btn:before {
+            background: linear-gradient(45deg, var(--pastel-blue), transparent);
+        }
+
+        /* Fix for quest cards in dark mode */
+        body.dark-mode .quest-title,
+        body.dark-mode .quest-desc {
+            color: var(--pastel-yellow);
+        }
+
+        /* Fix for social links hover in dark mode */
+        body.dark-mode .social-link:hover {
+            color: var(--bg-dark);
+        }
+
         /* Arcade Screen Container */
         .arcade-screen {
             max-width: 1000px;
@@ -182,9 +210,14 @@
             padding-bottom: 30px;
         }
 
-        /* Cute decorations */
+        /* Cute decorations✦ ✧ ✩ ✫ ✬ - Stars
+            ♪ ♫ ♩ ♭ ♮ - Musical notes
+            ❀ ✿ ❁ ✾ ❃ - Flowers
+            ♡ ♥ ❤ ❥ ❣ - Hearts
+            ✧ ⋆ ˚ ᨍ ✮ - Sparkles */
+            
         .arcade-screen::before {
-            content: "✿ ★ ♬ ♡";
+            content: "✿ ★ ♬ ♥";
             position: absolute;
             top: 10px;
             right: 20px;
@@ -912,7 +945,7 @@
             <!-- Character Section -->
             <div class="character-section">
                 <div class="pixel-avatar">
-                    <img src="Generated Image March 18, 2025 - 6_49PM.png.jpeg" alt="Pixel Avatar">
+                    <img src="assets/cutu.jpeg" alt="Pixel Avatar">
                     <div class="avatar-border"></div>
                 </div>
 
@@ -921,7 +954,7 @@
                     
                     <div class="stat-bar">
                         <div class="stat-name">
-                            <span>Frontend</span>
+                            <span>Frontend>_ HTML, CSS,JavaScript</span>
                             <span>92/100</span>
                         </div>
                         <div class="stat-meter">
@@ -931,7 +964,7 @@
                     
                     <div class="stat-bar">
                         <div class="stat-name">
-                            <span>Backend</span>
+                            <span>Backend>_ Python (Flask), APIDevelopment</span>
                             <span>88/100</span>
                         </div>
                         <div class="stat-meter">
@@ -941,7 +974,7 @@
                     
                     <div class="stat-bar">
                         <div class="stat-name">
-                            <span>UI/UX Design</span>
+                            <span>Database>_ PostgreSQL, MySQL</span>
                             <span>85/100</span>
                         </div>
                         <div class="stat-meter">
@@ -951,7 +984,7 @@
                     
                     <div class="stat-bar">
                         <div class="stat-name">
-                            <span>DevOps</span>
+                            <span>Cloud & Tools>_ Google Cloud,Git, GitHub</span>
                             <span>78/100</span>
                         </div>
                         <div class="stat-meter">
@@ -966,42 +999,25 @@
                 <h2 class="section-title">Active Quests</h2>
                 
                 <div class="quests">
-                    <div class="quest-card">
-                        <h3 class="quest-title">E-Commerce Platform</h3>
-                        <p class="quest-desc">Built a complete e-commerce solution with real-time inventory tracking and secure payment processing.</p>
-                        <div class="quest-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                        </div>
+                  <div class="quest-card">
+                    <a href="https://bit.ly/Billwise" style="text-decoration: none; color: inherit;"><h3 class="quest-title">Billwise</h3></a>
+                    <p class="quest-desc">
+                        BillWise is an AI-powered tool that helps you manage your expenses—just click, upload, and get asmart expense summary
+                    <div class="quest-tech">
+                      <span class="tech-tag">Python</span>
+                      <span class="tech-tag">Flask</span>
+                      <span class="tech-tag">PoserSQL</span>
+                      <span class="tech-tag">Google Cloud</span>
                     </div>
-                    
-                    <div class="quest-card">
-                        <h3 class="quest-title">AI Analytics Dashboard</h3>
-                        <p class="quest-desc">Created an analytics platform with machine learning capabilities for predictive data analysis.</p>
-                        <div class="quest-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">Vue.js</span>
-                        </div>
-                    </div>
-                    
-                    <div class="quest-card">
-                        <h3 class="quest-title">Mobile Health App</h3>
-                        <p class="quest-desc">Developed a cross-platform mobile application for tracking health metrics and providing personalized coaching.</p>
-                        <div class="quest-tech">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">GraphQL</span>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
 
             <!-- Inventory Section -->
-            <div class="inventory-section">
+                <br>     <br>
                 <h2 class="section-title">Inventory</h2>
-                
+                <div class="inventory-section">
                 <div class="inventory-grid">
                     <div class="inventory-item">
                         <div class="item-icon"><i class="fab fa-html5"></i></div>
@@ -1017,17 +1033,7 @@
                         <div class="item-icon"><i class="fab fa-js"></i></div>
                         <div class="item-name">JavaScript</div>
                     </div>
-                    
-                    <div class="inventory-item">
-                        <div class="item-icon"><i class="fab fa-react"></i></div>
-                        <div class="item-name">React</div>
-                    </div>
-                    
-                    <div class="inventory-item">
-                        <div class="item-icon"><i class="fab fa-node-js"></i></div>
-                        <div class="item-name">Node.js</div>
-                    </div>
-                    
+
                     <div class="inventory-item">
                         <div class="item-icon"><i class="fab fa-python"></i></div>
                         <div class="item-name">Python</div>
@@ -1035,26 +1041,48 @@
                     
                     <div class="inventory-item">
                         <div class="item-icon"><i class="fas fa-database"></i></div>
-                        <div class="item-name">MongoDB</div>
+                        <div class="item-name">PostgreSQL</div>
                     </div>
                     
                     <div class="inventory-item">
                         <div class="item-icon"><i class="fab fa-git-alt"></i></div>
                         <div class="item-name">Git</div>
                     </div>
+                        
+                    <div class="inventory-item">
+                        <div class="item-icon"><i class="fab fa-github-alt"></i></div>
+                        <div class="item-name">GitHub</div>
+                    </div>
+                        
+                    <div class="inventory-item">
+                        <div class="item-icon"><i class="fas fa-pepper-hot"></i></div>
+                        <div class="item-name">Flask</div>
+                    </div>
+
+                    <div class="inventory-item">
+                        <div class="item-icon"><i class="fas fa-cloud"></i></div>
+                        <div class="item-name">REST API</div>
+                    </div>
+
+                    <div class="inventory-item">
+                        <div class="item-icon"><i class="fab fa-google"></i></div>
+                        <div class="item-name">Google Cloud</div>
+                    </div>
+
                 </div>
             </div>
 
             <!-- Contact Section -->
-            <div class="contact-section">
+             <br>     
                 <h2 class="section-title">Contact</h2>
-                
+                <div class="contact-section">
+
                 <div class="contact-box">
                     <p>Ready to start a new quest together? Let's connect!</p>
                     
-                    <a href="./assets/resume.pdf" class="pixel-btn" download>
+              <!--       <a href="./assets/resume.pdf" class="pixel-btn" download>
                         <i class="fas fa-download"></i> Download Resume
-                    </a>
+                    </a> -->
                     
                     <div class="social-links">
                         <a href="https://github.com/Aryan-doms" class="social-link" target="_blank">
@@ -1075,8 +1103,7 @@
 
             <!-- Footer -->
             <div class="game-footer">
-                <p>&copy; 2025 Aryan Patel | All rights reserved</p>
-                <p>Made with love and lots of coffee</p>
+                <p>Made with love and some coffee ☕</p>
             </div>
         </div>
     </div>
