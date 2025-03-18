@@ -918,6 +918,41 @@
                 font-size: 1.2rem;
             }
         }
+
+        .achievement-card {
+            border: 5px solid var(--primary);
+            background: linear-gradient(145deg, var(--bg-light), var(--bg-mid));
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .achievement-date {
+            margin-top: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .achievement-card:hover .achievement-icon {
+            animation: wiggle 0.5s infinite;
+        }
+
+        /* Dark mode support */
+        body.dark-mode .achievement-card {
+            border-color: var(--pastel-mint);
+        }
+
+        body.dark-mode .achievement-date {
+            color: var(--pastel-yellow);
+        }
     </style>
 </head>
 <body>
@@ -937,7 +972,7 @@
         <!-- Arcade Header -->
         <div class="arcade-header">
             <h1 class="game-title">Aryan Patel</h1>
-            <div class="game-subtitle">Full-Stack Developer <span class="blinker">|</span> Creative Coder</div>
+            <div class="game-subtitle">Full-Stack Developer <span class="blinker">|</span> Vibe Coder</div>
         </div>
 
         <!-- Game Content -->
@@ -1013,6 +1048,26 @@
                 </div>
               </div>
               
+            <!-- Achievement Section -->
+            <div class="quest-section">
+                <h2 class="section-title">Achievements</h2>
+                
+                <div class="quests">
+                    <div class="quest-card achievement-card">
+                        <div class="achievement-icon">🏆</div>
+                        <h3 class="quest-title">Project Expo'25</h3>
+                        <p class="quest-desc">Won first place at BMU 2025 for innovative AI solution</p>
+                        <div class="achievement-date">January 2025</div>
+                    </div>
+                    
+                    <div class="quest-card achievement-card">
+                        <div class="achievement-icon">🎯</div>
+                        <h3 class="quest-title">Project Recognition</h3>
+                        <p class="quest-desc">BillWise featured in top 10 student projects at UNI</p>
+                        <div class="achievement-date">January 2025</div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Inventory Section -->
                 <br>     <br>
