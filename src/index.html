@@ -1334,7 +1334,7 @@
                     <p>Ready to start a new quest together? Send me a message!</p>
                     
                     <!-- Contact Form -->
-                    <form id="contactForm" class="contact-form" onsubmit="return false;">
+                    <form id="contactForm" class="contact-form">
                         <div class="form-group">
                             <label for="name" class="form-label">Player Name</label>
                             <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name..." required>
@@ -1355,7 +1355,7 @@
                             <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your quest..." required></textarea>
                         </div>
                         
-                        <button type="button" class="pixel-btn form-submit-btn" onclick="handleFormSubmit()">
+                        <button type="submit" class="pixel-btn form-submit-btn">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
                     </form>
@@ -1497,31 +1497,7 @@
             const contactForm = document.getElementById('contactForm');
             const formMessage = document.getElementById('formMessage');
 
-            // Direct form submission handler
-            window.handleFormSubmit = function() {
-                console.log('Form submit button clicked!');
-                
-                // Get form data
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const subject = document.getElementById('subject').value.trim();
-                const message = document.getElementById('message').value.trim();
-                
-                console.log('Form data:', { name, email, subject, message });
-                
-                // Validate form
-                if (!validateForm(name, email, message)) {
-                    return false;
-                }
-                
-                // Show loading state
-                showLoading(true);
-                
-                // Submit to Google Forms
-                submitToGoogleForms(name, email, subject, message);
-                
-                return false; // Prevent any default behavior
-            };
+
 
             // Google Form Configuration
             const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScF7m1GCc2f6bF_8-titLbwhoIxsLiF2gzHgI3FM24dEEdnLA/formResponse';
@@ -1533,7 +1509,9 @@
             };
 
             if (contactForm) {
+                console.log('Contact form found, adding event listener');
                 contactForm.addEventListener('submit', function(e) {
+                    console.log('Form submission triggered!');
                     e.preventDefault();
                     
                     // Get form data
@@ -1542,6 +1520,8 @@
                     const email = formData.get('email').trim();
                     const subject = formData.get('subject').trim();
                     const message = formData.get('message').trim();
+                    
+                    console.log('Form data:', { name, email, subject, message });
                     
                     // Validate form
                     if (!validateForm(name, email, message)) {
@@ -1554,6 +1534,9 @@
                     // Submit to Google Forms
                     submitToGoogleForms(name, email, subject, message);
                 });
+            } else {
+                console.error('Contact form not found!');
+            }
 
                 // Add kawaii validation effects
                 const inputs = contactForm.querySelectorAll('.form-input, .form-textarea');
