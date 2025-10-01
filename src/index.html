@@ -1334,7 +1334,7 @@
                     <p>Ready to start a new quest together? Send me a message!</p>
                     
                     <!-- Contact Form -->
-                    <form id="contactForm" class="contact-form">
+                    <form id="contactForm" class="contact-form" onsubmit="return false;">
                         <div class="form-group">
                             <label for="name" class="form-label">Player Name</label>
                             <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name..." required>
@@ -1355,7 +1355,7 @@
                             <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your quest..." required></textarea>
                         </div>
                         
-                        <button type="submit" class="pixel-btn form-submit-btn">
+                        <button type="button" class="pixel-btn form-submit-btn" onclick="handleFormSubmit()">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
                     </form>
@@ -1497,6 +1497,32 @@
             const contactForm = document.getElementById('contactForm');
             const formMessage = document.getElementById('formMessage');
 
+            // Direct form submission handler
+            window.handleFormSubmit = function() {
+                console.log('Form submit button clicked!');
+                
+                // Get form data
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
+                
+                console.log('Form data:', { name, email, subject, message });
+                
+                // Validate form
+                if (!validateForm(name, email, message)) {
+                    return false;
+                }
+                
+                // Show loading state
+                showLoading(true);
+                
+                // Submit to Google Forms
+                submitToGoogleForms(name, email, subject, message);
+                
+                return false; // Prevent any default behavior
+            };
+
             // Google Form Configuration
             const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScF7m1GCc2f6bF_8-titLbwhoIxsLiF2gzHgI3FM24dEEdnLA/formResponse';
             const ENTRY_IDS = {
@@ -1592,65 +1618,75 @@
             }
 
             function submitToGoogleForms(name, email, subject, message) {
-                // Debug: Log the data being sent
-                console.log('Submitting form data:', { name, email, subject, message });
-                console.log('Google Form URL:', GOOGLE_FORM_URL);
-                console.log('Entry IDs:', ENTRY_IDS);
+                console.log('submitToGoogleForms called with:', { name, email, subject, message });
+                
+                // Create a simple GET request URL (most reliable method for Google Forms)
+                const params = new URLSearchParams();
+                params.append(ENTRY_IDS.name, name);
+                params.append(ENTRY_IDS.email, email);
+                params.append(ENTRY_IDS.subject, subject);
+                params.append(ENTRY_IDS.message, message);
+                params.append('submit', 'Submit');
 
-                // Method 1: Try iframe submission (more reliable)
-                try {
-                    const iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
+                const submitUrl = `${GOOGLE_FORM_URL}?${params.toString()}`;
+                console.log('Submitting to URL:', submitUrl);
 
-                    const params = new URLSearchParams();
-                    params.append(ENTRY_IDS.name, name);
-                    params.append(ENTRY_IDS.email, email);
-                    params.append(ENTRY_IDS.subject, subject);
-                    params.append(ENTRY_IDS.message, message);
+                // Create hidden iframe for submission
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.name = 'hiddenFrame';
+                document.body.appendChild(iframe);
 
-                    const submitUrl = `${GOOGLE_FORM_URL}?${params.toString()}`;
-                    console.log('Submitting to:', submitUrl);
+                // Create a form element to submit via iframe
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = GOOGLE_FORM_URL;
+                form.target = 'hiddenFrame';
 
-                    iframe.src = submitUrl;
+                // Add form fields
+                const fields = [
+                    { name: ENTRY_IDS.name, value: name },
+                    { name: ENTRY_IDS.email, value: email },
+                    { name: ENTRY_IDS.subject, value: subject },
+                    { name: ENTRY_IDS.message, value: message }
+                ];
 
-                    // Clean up iframe after submission
-                    setTimeout(() => {
-                        document.body.removeChild(iframe);
-                        showLoading(false);
-                        showMessage(`Quest message sent successfully! ✿ Thanks ${name}, I'll get back to you soon! ★`, 'success');
-                        contactForm.reset();
-                        createCelebrationEffect();
-                    }, 2000);
+                fields.forEach(field => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = field.name;
+                    input.value = field.value;
+                    form.appendChild(input);
+                });
 
-                } catch (error) {
-                    console.error('Iframe submission failed, trying fetch method:', error);
+                document.body.appendChild(form);
+                
+                // Submit the form
+                console.log('Submitting form...');
+                form.submit();
+
+                // Clean up and show success after delay
+                setTimeout(() => {
+                    try {
+                        if (form.parentNode) document.body.removeChild(form);
+                        if (iframe.parentNode) document.body.removeChild(iframe);
+                    } catch (e) {
+                        console.log('Cleanup error (expected):', e);
+                    }
                     
-                    // Fallback: Try fetch method
-                    const googleFormData = new FormData();
-                    googleFormData.append(ENTRY_IDS.name, name);
-                    googleFormData.append(ENTRY_IDS.email, email);
-                    googleFormData.append(ENTRY_IDS.subject, subject);
-                    googleFormData.append(ENTRY_IDS.message, message);
-
-                    fetch(GOOGLE_FORM_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: googleFormData
-                    })
-                    .then(() => {
-                        console.log('Fetch submission completed');
-                        showLoading(false);
-                        showMessage(`Quest message sent successfully! ✿ Thanks ${name}, I'll get back to you soon! ★`, 'success');
-                        contactForm.reset();
-                        createCelebrationEffect();
-                    })
-                    .catch((fetchError) => {
-                        console.error('Both submission methods failed:', fetchError);
-                        showLoading(false);
-                        showMessage('Oops! Something went wrong with your quest. Please try again! ♡', 'error');
-                    });
-                }
+                    showLoading(false);
+                    showMessage(`Quest message sent successfully! ✿ Thanks ${name}, I'll get back to you soon! ★`, 'success');
+                    
+                    // Reset the original form
+                    document.getElementById('name').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('subject').value = '';
+                    document.getElementById('message').value = '';
+                    
+                    createCelebrationEffect();
+                }, 3000);
             }
 
             function showMessage(message, type) {
