@@ -1410,9 +1410,12 @@
             });
 
             // Create a fun confetti effect when clicking download resume
-            document.querySelector('a[download]').addEventListener('click', function() {
-                createConfetti();
-            });
+            const downloadBtn = document.querySelector('a[download]');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function() {
+                    createConfetti();
+                });
+            }
 
             function createConfetti() {
                 const confettiContainer = document.createElement('div');
@@ -1497,8 +1500,6 @@
             const contactForm = document.getElementById('contactForm');
             const formMessage = document.getElementById('formMessage');
 
-
-
             // Google Form Configuration
             const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScF7m1GCc2f6bF_8-titLbwhoIxsLiF2gzHgI3FM24dEEdnLA/formResponse';
             const ENTRY_IDS = {
@@ -1508,7 +1509,7 @@
                 message: 'entry.1041219420'
             };
 
-            if (contactForm) {
+            if (contactForm && formMessage) {
                 console.log('Contact form found, adding event listener');
                 contactForm.addEventListener('submit', function(e) {
                     console.log('Form submission triggered!');
@@ -1534,9 +1535,6 @@
                     // Submit to Google Forms
                     submitToGoogleForms(name, email, subject, message);
                 });
-            } else {
-                console.error('Contact form not found!');
-            }
 
                 // Add kawaii validation effects
                 const inputs = contactForm.querySelectorAll('.form-input, .form-textarea');
@@ -1547,9 +1545,14 @@
                     
                     input.addEventListener('focus', function() {
                         this.style.borderColor = 'var(--primary)';
-                        formMessage.style.display = 'none';
+                        if (formMessage) {
+                            formMessage.style.display = 'none';
+                        }
                     });
                 });
+            } else {
+                console.error('Contact form or form message element not found!');
+            }
 
             function validateForm(name, email, message) {
                 if (!name) {
@@ -1602,23 +1605,15 @@
             function submitToGoogleForms(name, email, subject, message) {
                 console.log('submitToGoogleForms called with:', { name, email, subject, message });
                 
-                // Create a simple GET request URL (most reliable method for Google Forms)
-                const params = new URLSearchParams();
-                params.append(ENTRY_IDS.name, name);
-                params.append(ENTRY_IDS.email, email);
-                params.append(ENTRY_IDS.subject, subject);
-                params.append(ENTRY_IDS.message, message);
-                params.append('submit', 'Submit');
-
-                const submitUrl = `${GOOGLE_FORM_URL}?${params.toString()}`;
-                console.log('Submitting to URL:', submitUrl);
-
                 // Create hidden iframe for submission
                 const iframe = document.createElement('iframe');
                 iframe.style.display = 'none';
                 iframe.style.width = '0';
                 iframe.style.height = '0';
                 iframe.name = 'hiddenFrame';
+                iframe.onload = function() {
+                    console.log('Form submitted to Google Forms');
+                };
                 document.body.appendChild(iframe);
 
                 // Create a form element to submit via iframe
@@ -1626,6 +1621,7 @@
                 form.method = 'POST';
                 form.action = GOOGLE_FORM_URL;
                 form.target = 'hiddenFrame';
+                form.style.display = 'none';
 
                 // Add form fields
                 const fields = [
@@ -1646,7 +1642,7 @@
                 document.body.appendChild(form);
                 
                 // Submit the form
-                console.log('Submitting form...');
+                console.log('Submitting form to iframe...');
                 form.submit();
 
                 // Clean up and show success after delay
@@ -1662,13 +1658,18 @@
                     showMessage(`Quest message sent successfully! ✿ Thanks ${name}, I'll get back to you soon! ★`, 'success');
                     
                     // Reset the original form
-                    document.getElementById('name').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('subject').value = '';
-                    document.getElementById('message').value = '';
+                    const nameField = document.getElementById('name');
+                    const emailField = document.getElementById('email');
+                    const subjectField = document.getElementById('subject');
+                    const messageField = document.getElementById('message');
+                    
+                    if (nameField) nameField.value = '';
+                    if (emailField) emailField.value = '';
+                    if (subjectField) subjectField.value = '';
+                    if (messageField) messageField.value = '';
                     
                     createCelebrationEffect();
-                }, 3000);
+                }, 2000);
             }
 
             function showMessage(message, type) {
